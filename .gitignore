@@ -6,3 +6,4 @@ htmlcov/
 db.sqlite3
 .ipynb_checkpoints
 venv/
+/.idea/
