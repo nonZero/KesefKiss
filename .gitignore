@@ -1,0 +1,8 @@
+### Python template
+*.pyc
+htmlcov/
+.tox/
+.pytest_cache/
+db.sqlite3
+.ipynb_checkpoints
+venv/
