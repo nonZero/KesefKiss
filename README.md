@@ -18,6 +18,10 @@ An example Django project - to manage YOUR 💵 money 💵 !
     
           pip install -r requirements.txt 
    
+* To create some data, run the following command 
+
+        python manage.py create_silly_expenses 111
+
 * Inside PyCharm, open the terminal window and run:
 
         python manage.py runserver
