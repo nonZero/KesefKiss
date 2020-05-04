@@ -14,6 +14,9 @@ An example Django project - to manage YOUR 💵 money 💵 !
 * Create a new PyCharm project:
     * Project folder: ...../KesefKiss
     * Create a new Python 3.8 virtualenv
+    * Install requirements:
+    
+          pip install -r requirements.txt 
    
 * Inside PyCharm, open the terminal window and run:
 
