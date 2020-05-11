@@ -10,6 +10,7 @@ class ExpensesTestCase(TestCase):
             title="Mercedes",
             amount=212_000,
             created_at=f"2020-02-23",
+            description="",
         )
         o.full_clean()
         o.save()
