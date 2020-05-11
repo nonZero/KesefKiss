@@ -1,0 +1,18 @@
+<h1>
+    Expense #{{ object.id }}
+</h1>
+
+<ul>
+    <li>
+        {{ object.title }}
+    </li>
+    <li>
+        ${{ object.amount }}
+    </li>
+    <li>
+        Date: {{ object.date }}
+    </li>
+    <li>
+        Description: {{ object.description|linebreaksbr }}
+    </li>
+</ul>

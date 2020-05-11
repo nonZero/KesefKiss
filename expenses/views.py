@@ -7,3 +7,9 @@ def expense_list(request):
     return render(request, "expenses/expense_list.html", {
         'object_list': Expense.objects.all(),
     })
+
+
+def expense_detail(request, id: int):
+    return render(request, "expenses/expense_detail.html", {
+        'object': Expense.objects.get(id=id),
+    })
