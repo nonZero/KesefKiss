@@ -8,3 +8,6 @@ class Expense(models.Model):
 
     def __str__(self):
         return self.title
+
+    def is_expensive(self):
+        return self.amount > 50
