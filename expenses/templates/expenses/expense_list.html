@@ -1,21 +1,36 @@
 <h1>
-    Yo yoy oyo yoy
+    My Expenses
 </h1>
 
-<p>
-    HELLO <b>WORLD</b>!!!!!
-</p>
-<p>
-    The secret word is {{ word }}.
-</p>
-<p>
-    Some numbers: {{ nums }}.
-</p>
-<ul>
-    {% for x in mylist %}
-        <li>{{ x }}</li>
+<table border="1">
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Amount
+        </th>
+        <th>
+            Date
+        </th>
+    </tr>
+    {% for object in object_list %}
+        <tr>
+            <td>
+                {{ object.id }}
+            </td>
+            <td>
+                {{ object.title }}
+            </td>
+            <td>
+                ${{ object.amount }}
+            </td>
+            <td>
+                {{ object.date }}
+            </td>
+        </tr>
     {% endfor %}
-</ul>
-<p>
-    HELLO <b>WORLD</b>!!!!!
-</p>
+</table>
