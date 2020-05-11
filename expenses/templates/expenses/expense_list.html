@@ -20,7 +20,9 @@
     {% for object in object_list %}
         <tr>
             <td>
-                {{ object.id }}
+                <a href="{% url "expenses:detail" object.id %}">
+                    {{ object.id }}
+                </a>
             </td>
             <td>
                 {{ object.title }}
