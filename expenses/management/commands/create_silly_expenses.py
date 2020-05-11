@@ -17,5 +17,5 @@ class Command(BaseCommand):
             Expense.objects.create(
                 title=silly.thing(),
                 amount=random.randint(1, 10000) / 100,
-                created_at=f"2020-05-{random.randint(1, 20):02}",
+                date=f"2020-05-{random.randint(1, 20):02}",
             )

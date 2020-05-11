@@ -8,7 +8,7 @@ class Expense(models.Model):
         validators.MaxValueValidator(1_000_000),
         validators.MinValueValidator(0.50),
     ])
-    created_at = models.DateField()
+    date = models.DateField()
     description = models.TextField(blank=True)
 
     def __str__(self):

@@ -9,7 +9,7 @@ class ExpensesTestCase(TestCase):
         o = Expense(
             title="Mercedes",
             amount=212_000,
-            created_at=f"2020-02-23",
+            date=f"2020-02-23",
             description="",
         )
         o.full_clean()
@@ -20,7 +20,7 @@ class ExpensesTestCase(TestCase):
         o = Expense(
             title="Boeing 747",
             amount=212_000_000,
-            created_at=f"2020-02-23",
+            date=f"2020-02-23",
         )
         self.assertRaises(ValidationError, o.full_clean)
 
@@ -28,6 +28,6 @@ class ExpensesTestCase(TestCase):
         o = Expense(
             title="Bazooka",
             amount=0.02,
-            created_at=f"2020-02-23",
+            date=f"2020-02-23",
         )
         self.assertRaises(ValidationError, o.full_clean)
