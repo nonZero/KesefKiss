@@ -1,6 +1,66 @@
+<style>
+    h1 {
+        text-align: center;
+        background: purple;
+        border: 1px solid green;
+        color:white;
+        padding: 10px;
+    }
+
+    .expense_title {
+        text-align: center;
+    }
+
+    .nice {
+        background: pink;
+    }
+
+    #menu {
+        border: 3px solid black;
+        background: #aaa;
+        padding:25px;
+    }
+
+
+</style>
+
+
+<div id="menu">
+    <a href="{% url "expenses:list" %}">KesefKiss</a>
+    |
+    <a href="#">Create</a>
+</div>
+
 <h1>
     My Expenses
 </h1>
+
+<h2>
+    HTML Entities
+</h2>
+<p>
+    17&lt;x&gt;21
+</p>
+
+<p>
+    The value of foo is {{ foo }}.
+</p>
+
+<p>
+    The value of foo is safe and it is {{ foo|safe }}.
+</p>
+
+<p>
+    To draw &lt; on a <a
+        href="#"
+        title="He said:&quot;shalom!&quot;"
+>webpage</a>, type: &amp;lt;
+</p>
+
+<p>
+    &int; &#1234; shalom 3
+</p>
+
 
 <table border="1">
     <tr>
@@ -24,13 +84,13 @@
                     {{ object.id }}
                 </a>
             </td>
-            <td>
+            <td class="expense_title nice">
                 {{ object.title }}
             </td>
             <td>
                 ${{ object.amount }}
             </td>
-            <td>
+            <td class="nice">
                 {{ object.date }}
             </td>
         </tr>
