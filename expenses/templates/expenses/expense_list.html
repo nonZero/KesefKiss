@@ -1,28 +1,6 @@
-<style>
-    h1 {
-        text-align: center;
-        background: purple;
-        border: 1px solid green;
-        color:white;
-        padding: 10px;
-    }
+{% load static %}
 
-    .expense_title {
-        text-align: center;
-    }
-
-    .nice {
-        background: pink;
-    }
-
-    #menu {
-        border: 3px solid black;
-        background: #aaa;
-        padding:25px;
-    }
-
-
-</style>
+<link rel="stylesheet" href="{% static "css/style.css" %}">
 
 
 <div id="menu">
@@ -96,3 +74,7 @@
         </tr>
     {% endfor %}
 </table>
+
+<div id="endoftext">
+    bye!
+</div>

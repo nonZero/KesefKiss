@@ -1,0 +1,21 @@
+h1 {
+    text-align: center;
+    background: purple;
+    border: 1px solid green;
+    color: white;
+    padding: 10px;
+}
+
+.expense_title {
+    text-align: center;
+}
+
+.nice {
+    background: pink;
+}
+
+#menu {
+    border: 3px solid black;
+    background: #aaa;
+    padding: 25px;
+}
