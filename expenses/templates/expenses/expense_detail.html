@@ -1,22 +1,26 @@
-<p>
-    <a href="{% url "expenses:list" %}">Expenses</a>
-</p>
+{% extends "base.html" %}
 
-<h1>
+{% block title %}
     Expense #{{ object.id }}
-</h1>
+{% endblock %}
 
-<ul>
-    <li>
-        {{ object.title }}
-    </li>
-    <li>
-        ${{ object.amount }}
-    </li>
-    <li>
-        Date: {{ object.date }}
-    </li>
-    <li>
-        Description: {{ object.description|linebreaksbr }}
-    </li>
-</ul>
+{% block content %}
+    <h1>
+        Expense #{{ object.id }}
+    </h1>
+
+    <ul>
+        <li>
+            {{ object.title }}
+        </li>
+        <li>
+            ${{ object.amount }}
+        </li>
+        <li>
+            Date: {{ object.date }}
+        </li>
+        <li>
+            Description: {{ object.description|linebreaksbr }}
+        </li>
+    </ul>
+{% endblock %}
