@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block title %}
     Create New expense
@@ -12,7 +13,7 @@
     <form method="post" novalidate>
         {% csrf_token %}
 
-        {{ form.as_p }}
+        {% bootstrap_form form %}
 
         <button>Create</button>
 
