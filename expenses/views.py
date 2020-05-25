@@ -36,8 +36,16 @@ def expense_create(request):
     })
 
 def expense_list(request):
+    # foo=bar&xxx=y&yyy=1&a=2&a=3
+    # {'foo': ['bar'], 'xxx': ['y'], 'yyy': ['1'], 'a': ['2', '3']}
+    # /?q=pizza
+    # /
+    q = request.GET.get('q')
+    qs = Expense.objects.all()
+    if q:
+        qs = qs.filter(title__icontains=q)
     return render(request, "expenses/expense_list.html", {
-        'object_list': Expense.objects.all(),
+        'object_list': qs,
     })
 
 
