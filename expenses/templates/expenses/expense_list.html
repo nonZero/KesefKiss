@@ -24,6 +24,9 @@
                 #
             </th>
             <th>
+                Category
+            </th>
+            <th>
                 Title
             </th>
             <th>
@@ -39,6 +42,9 @@
                     <a href="{% url "expenses:detail" object.id %}">
                         {{ object.id }}
                     </a>
+                </td>
+                <td class="expense_title nice">
+                    {{ object.category }}
                 </td>
                 <td class="expense_title nice">
                     {{ object.title }}
