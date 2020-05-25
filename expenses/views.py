@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from expenses.models import Expense
@@ -20,6 +21,7 @@ class ExpenseForm(forms.ModelForm):
         fields = "__all__"
 
 
+@login_required()
 def expense_create(request):
     if request.method == "POST":
         form = ExpenseForm(request.POST)
@@ -35,11 +37,9 @@ def expense_create(request):
         'form': form,
     })
 
+
+@login_required()
 def expense_list(request):
-    # foo=bar&xxx=y&yyy=1&a=2&a=3
-    # {'foo': ['bar'], 'xxx': ['y'], 'yyy': ['1'], 'a': ['2', '3']}
-    # /?q=pizza
-    # /
     q = request.GET.get('q')
     qs = Expense.objects.all()
     if q:
@@ -49,6 +49,7 @@ def expense_list(request):
     })
 
 
+@login_required()
 def expense_detail(request, id: int):
     return render(request, "expenses/expense_detail.html", {
         'object': Expense.objects.get(id=id),
