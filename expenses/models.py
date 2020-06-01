@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core import validators
 from django.db import models
 
@@ -13,7 +14,8 @@ class Category(models.Model):
 
 
 class Expense(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='expenses')  # 1-to-many
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='expenses')
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='expenses')
     title = models.CharField(max_length=300)
     amount = models.DecimalField(decimal_places=2, max_digits=10, validators=[
         validators.MaxValueValidator(1_000_000),
