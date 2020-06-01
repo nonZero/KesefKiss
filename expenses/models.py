@@ -4,9 +4,13 @@ from django.db import models
 
 
 class Category(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='categories')
     name = models.CharField(max_length=300)
 
     class Meta:
+        unique_together = (
+            ('user', 'name'),
+        )
         verbose_name_plural = "categories"
 
     def __str__(self):

@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.db import IntegrityError
 
-from expenses.models import Expense, Category
+from expenses.models import Expense
+
+CATS = "food car house utilities kids vacation etc fun investment pets lost".title().split()
 
 
 class Command(BaseCommand):
@@ -22,18 +24,18 @@ class Command(BaseCommand):
             username = f"user{i}"
             # get_or_create
             try:
-                users.append(User.objects.create_user(username, password=username))
+                u = User.objects.create_user(username, password=username)
+                for c in random.sample(CATS, random.randint(2, 5)):
+                    u.categories.create(name=c)
+                users.append(u)
             except IntegrityError:
                 users.append(User.objects.get(username=username))
 
-        while Category.objects.count() < 10:
-            Category.objects.create(name=silly.thing().title())
-
-        categories = Category.objects.all()
         for i in range(n):
+            u = random.choice(users)
             Expense.objects.create(
-                user=random.choice(users),
-                category=random.choice(categories),
+                user=u,
+                category=u.categories.order_by("?").first(),
                 title=silly.thing(),
                 amount=random.randint(1, 10000) / 100,
                 date=f"2020-05-{random.randint(1, 20):02}",

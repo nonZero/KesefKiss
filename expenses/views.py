@@ -13,16 +13,22 @@ class ExpenseForm(forms.ModelForm):
         )
 
 
+def get_expense_form(user, data=None):
+    form = ExpenseForm(data)
+    form.fields['category'].queryset = user.categories.all()
+    return form
+
+
 @login_required()
 def expense_create(request):
     if request.method == "POST":
-        form = ExpenseForm(request.POST)
+        form = get_expense_form(request.user, request.POST)
         if form.is_valid():
             form.instance.user = request.user
             o = form.save()
             return redirect("expenses:list")
     else:
-        form = ExpenseForm()
+        form = get_expense_form(request.user)
     return render(request, "expenses/expense_form.html", {
         'form': form,
     })
