@@ -27,6 +27,7 @@ class Expense(models.Model):
     ])
     date = models.DateField()
     description = models.TextField(blank=True)
+    is_star = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

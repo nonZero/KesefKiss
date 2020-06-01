@@ -10,6 +10,7 @@ class ExpenseForm(forms.ModelForm):
         model = Expense
         exclude = (
             'user',
+            'is_star',
         )
 
 
