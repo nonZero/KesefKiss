@@ -1,9 +1,8 @@
-from http.client import HTTP_VERSION_NOT_SUPPORTED
-
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
+from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from rest_framework import serializers
 
 from expenses.models import Expense
 
@@ -56,7 +55,7 @@ def expense_star(request, id: int):
 
     import time
     import random
-    time.sleep(random.randint(1,2))
+    time.sleep(random.randint(1, 2))
     # TODO: reliable toggle :-)
     o = get_object_or_404(Expense, user=request.user, id=id)
     o.is_star = not o.is_star
@@ -67,7 +66,6 @@ def expense_star(request, id: int):
     })
 
 
-
 @login_required()
 def expense_detail(request, id: int):
     return render(request, "expenses/expense_detail.html", {
@@ -75,3 +73,27 @@ def expense_detail(request, id: int):
     })
 
 
+class ExpenseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Expense
+        fields = "__all__"
+
+
+@login_required()
+def expense_list_json(request):
+    q = request.GET.get('q')
+    qs = request.user.expenses.order_by('-date')  # related_name on the Expense.user model field!
+    if q:
+        qs = qs.filter(title__icontains=q)
+    return JsonResponse({'items': ExpenseSerializer(qs, many=True).data})
+    # return JsonResponse({'items': [ExpenseSerializer(o).data for o in qs]})
+    # return JsonResponse({'items': [{
+    #     'id': o.id,
+    #     'amount': o.amount,
+    #     'title': o.title,
+    #     'date': o.date,
+    #     'category': {
+    #         'id': o.category.id,
+    #         'name': o.category.name,
+    #     },
+    # } for o in qs]})
