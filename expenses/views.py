@@ -1,6 +1,8 @@
+from http.client import HTTP_VERSION_NOT_SUPPORTED
+
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render, redirect, get_object_or_404
 
 from expenses.models import Expense
@@ -49,6 +51,9 @@ def expense_list(request):
 
 @login_required()
 def expense_star(request, id: int):
+    if request.method != "POST":
+        return HttpResponseNotAllowed(["POST"])
+
     import time
     import random
     time.sleep(random.randint(1,2))
