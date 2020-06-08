@@ -43,12 +43,10 @@
                     <a href="{% url "expenses:detail" object.id %}">
                         {{ object.id }}
                     </a>
-                    <span class="star">
-                        {% if object.is_star %}
-                            <img src="{% static "svg-icons/star-fill.svg" %}" alt="" width="18" height="18" title="Unstar">
-                        {% else %}
-                            <img src="{% static "svg-icons/star.svg" %}" alt="" width="18" height="18" title="Star">
-                        {% endif %}
+                    <span class="star {% if object.is_star %}star-on{% else %}star-off{% endif %}" data-url="{% url "expenses:star" object.id %}">
+                        <img class="full" src="{% static "svg-icons/star-fill.svg" %}" alt="" width="18" height="18" title="Unstar">
+                        <img class="empty" src="{% static "svg-icons/star.svg" %}" alt="" width="18" height="18" title="Star">
+                        <img class="reloader" src="{% static "svg-icons/star-half.svg" %}" alt="" width="18" height="18" title="Refreshing....">
                     </span>
                 </td>
                 <td class="expense_title nice">
@@ -70,6 +68,5 @@
 
 {% block scripts %}
     <script src="{% static "js/expense_list.js" %}"></script>
-
 {% endblock %}
 

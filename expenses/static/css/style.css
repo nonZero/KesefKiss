@@ -1,3 +1,19 @@
 body {
     margin-top: 10px;
 }
+
+.star img {
+    display: none;
+}
+
+.star-on img.full {
+    display: inline;
+}
+
+.star-off img.empty {
+    display: inline;
+}
+
+.star.loading img.reloader {
+    display: inline;
+}

@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from expenses.models import Expense
@@ -47,7 +48,22 @@ def expense_list(request):
 
 
 @login_required()
+def expense_star(request, id: int):
+    import time
+    import random
+    time.sleep(random.randint(1,2))
+    # TODO: reliable toggle :-)
+    o = get_object_or_404(Expense, user=request.user, id=id)
+    o.is_star = not o.is_star
+    o.save()
+    return HttpResponse(f"star star-{'on' if o.is_star else 'off'}")
+
+
+
+@login_required()
 def expense_detail(request, id: int):
     return render(request, "expenses/expense_detail.html", {
         'object': get_object_or_404(Expense, user=request.user, id=id),
     })
+
+
