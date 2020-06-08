@@ -2,7 +2,7 @@ from http.client import HTTP_VERSION_NOT_SUPPORTED
 
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from expenses.models import Expense
@@ -61,7 +61,10 @@ def expense_star(request, id: int):
     o = get_object_or_404(Expense, user=request.user, id=id)
     o.is_star = not o.is_star
     o.save()
-    return HttpResponse(f"star star-{'on' if o.is_star else 'off'}")
+    # return HttpResponse(f"star star-{'on' if o.is_star else 'off'}")
+    return JsonResponse({
+        'star': o.is_star,
+    })
 
 
 

@@ -35,9 +35,10 @@ for (const star of stars) {
       headers: {
         "X-CSRFToken": csrftoken,
       },
-    }).then(function(resp) {return resp.text();}).then(function(text) {
-      console.log(text);
-      star.setAttribute('class', text);
+    }).then(function(resp) {return resp.json();}).then(function(data) {
+      console.log(data);
+      const cls = "star " + (data.star ? "star-on" : "star-off")
+      star.setAttribute('class', cls);
     });
   });
 }
