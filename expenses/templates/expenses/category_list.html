@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static bootstrap4 %}
+
+{% block title %}
+    My Categories
+{% endblock %}
+
+{% block content %}
+    <h1>
+        My Categories ({{ object_list.count }})
+    </h1>
+
+    <ul class="list-group">
+        {% for object in object_list %}
+            <li class="list-group-item">
+                {{ object }}
+                {{ object.user }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% bootstrap_pagination page_obj %}
+
+{% endblock %}
+

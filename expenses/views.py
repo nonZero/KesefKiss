@@ -1,10 +1,13 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseNotAllowed, JsonResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseNotAllowed, JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views import View
+from django.views.generic import TemplateView, ListView
 from rest_framework import serializers
 
-from expenses.models import Expense
+from expenses.models import Expense, Category
 
 
 class ExpenseForm(forms.ModelForm):
@@ -73,7 +76,15 @@ def expense_detail(request, id: int):
     })
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
+
+
 class ExpenseSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+
     class Meta:
         model = Expense
         fields = "__all__"
@@ -97,3 +108,45 @@ def expense_list_json(request):
     #         'name': o.category.name,
     #     },
     # } for o in qs]})
+
+
+# @login_required()
+# def category_list(request):
+#     qs = request.user.categories.all()
+#     return render(request, "expenses/category_list.html", {
+#         'object_list': qs,
+#     })
+
+# class based views (CBV)
+
+
+# class CategoryListView(View):
+#     template_name = "my_template.html"
+#     def get(self, request, *args, **kwargs):
+#         return render(request, "my_template.html")
+        # return render(request, self.template_name)
+
+# class CategoryListView(TemplateView):
+#     template_name = "my_template.html"
+#     foo = 123
+#
+#     def bar(self):
+#         return 10 * "!"
+#
+# class BetterCategoryListView(CategoryListView):
+#     def bar(self):
+#         return super().bar().center(50, "?")
+#
+
+class CategoryListView(LoginRequiredMixin, ListView):
+    # queryset = Category.objects.order_by('-name')
+    paginate_by = 5
+
+    def get_queryset(self):
+        return self.request.user.categories.all()
+
+# class BetterCategoryListView(CategoryListView):
+#     def get(self, request):
+#         qs = self.get_queryset()
+#         return JsonResponse({'items': self.get_queryset()})
+
