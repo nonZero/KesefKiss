@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseNotAllowed, JsonResponse, HttpResponse
+from django.http import HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views import View
-from django.views.generic import TemplateView, ListView
-from rest_framework import serializers
+from django.views.generic import ListView
+from rest_framework import viewsets
 
 from expenses.models import Expense, Category
+from expenses.serializers import ExpenseSerializer, CategorySerializer
 
 
 class ExpenseForm(forms.ModelForm):
@@ -76,20 +76,6 @@ def expense_detail(request, id: int):
     })
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = "__all__"
-
-
-class ExpenseSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
-
-    class Meta:
-        model = Expense
-        fields = "__all__"
-
-
 @login_required()
 def expense_list_json(request):
     q = request.GET.get('q')
@@ -124,7 +110,7 @@ def expense_list_json(request):
 #     template_name = "my_template.html"
 #     def get(self, request, *args, **kwargs):
 #         return render(request, "my_template.html")
-        # return render(request, self.template_name)
+# return render(request, self.template_name)
 
 # class CategoryListView(TemplateView):
 #     template_name = "my_template.html"
@@ -145,8 +131,19 @@ class CategoryListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return self.request.user.categories.all()
 
+
 # class BetterCategoryListView(CategoryListView):
 #     def get(self, request):
 #         qs = self.get_queryset()
 #         return JsonResponse({'items': self.get_queryset()})
 
+
+# class ExpenseViewSet(viewsets.ModelViewSet):
+class ExpenseViewSet(viewsets.ModelViewSet):
+    queryset = Expense.objects.all()
+    serializer_class = ExpenseSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

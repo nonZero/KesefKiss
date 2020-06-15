@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # 3rd party apps
     'django_extensions',
     'bootstrap4',
+    'rest_framework',
 
     # our apps
     "expenses.apps.ExpensesConfig",
